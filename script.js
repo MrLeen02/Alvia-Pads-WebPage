@@ -139,7 +139,7 @@
       'contact.title':           'Write to us.',
       'contact.lede':            'Direct channels for direct inquiries. No forms, no funnels.',
       'contact.cat.1':           'Business inquiries',
-      'contact.cat.2':           'Manufacturing',
+      'contact.cat.2':           'social media',
       'contact.cat.3':           'Retail partnerships',
       'contact.cat.test':        'Product testing',
       'contact.cat.5':           'General questions',
