@@ -1,0 +1,250 @@
+/* ALVIA — shop layer: the order form on the product page.
+   Loaded on every page after styles.css and built on its tokens, so a theme change
+   there carries through here. Nothing in the .shop block shows unless shop.js turns it on. */
+
+/* The shop's own call-to-action: the accent plate, as on the header button. */
+.button--accent { color: #fff; background: var(--accent); border-color: var(--accent); }
+.button--accent:hover { color: #0b0c0a; background: var(--ink); border-color: var(--ink); }
+.button--accent[aria-disabled="true"] { pointer-events: none; }
+.button--accent:disabled { opacity: .55; cursor: not-allowed; }
+
+/* Panels set display themselves, so the hidden attribute needs to win explicitly. */
+.shop [hidden] { display: none !important; }
+
+/* Before launch the website has no shop. The site's server marks <html> with
+   .is-selling once "Shop on the website" is switched on in the admin backend. Without
+   that mark — also on a host that only serves files — everything that belongs to the
+   shop stays away ([data-selling]: buy box, links to the terms and the shipping page,
+   the shop's paragraphs in the privacy policy); [data-prelaunch] is the wording for
+   the time before, where it differs. */
+html:not(.is-selling) [data-selling],
+html.is-selling [data-prelaunch] { display: none !important; }
+
+/* Quantity stepper. */
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--rule); border-radius: 999px; }
+.qty__btn { display: grid; width: 38px; height: 38px; place-items: center; padding: 0; color: var(--ink); background: transparent; border: 0; border-radius: 50%; font-size: 16px; line-height: 1; transition: color var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease); }
+.qty__btn:hover:not(:disabled) { color: var(--accent-ink); }
+.qty__btn:active:not(:disabled) { transform: scale(.92); }
+.qty__btn:disabled { color: #55564f; cursor: not-allowed; }
+.qty__value { min-width: 28px; font-size: 13px; font-weight: 600; text-align: center; font-variant-numeric: tabular-nums lining-nums; }
+
+/* Product page: one block, four faces — order form, paused, thank-you, offline note. */
+.shop { max-width: 520px; margin-bottom: 34px; }
+.buy,
+.shop__drop,
+.shop__setup { margin: 0; padding: clamp(20px, 2.4vw, 26px); background: var(--dark-raised); border: 1px solid var(--rule-dark); border-radius: var(--radius-md); }
+.shop__drop .eyebrow { margin-bottom: 12px; color: var(--accent-ink); }
+.shop__drop-title { margin: 0 0 10px; font-size: clamp(24px, 2.4vw, 32px); font-weight: 510; letter-spacing: -.055em; line-height: 1.02; }
+.shop__drop .buy__retry { margin-top: 16px; }
+.shop__note { margin: 0; color: #aaaba3; font-size: 13px; line-height: 1.6; }
+.shop__note a,
+.shop__setup a { color: #e8e9e2; text-decoration: underline; text-underline-offset: 3px; }
+.shop__note a:hover,
+.shop__setup a:hover { color: #fff; }
+.shop__setup { color: #f0cf8a; border-color: #b98a2e; font-size: 13px; line-height: 1.6; }
+
+.buy { display: grid; gap: 18px; }
+.buy__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin: 0; }
+.buy__amount { font-size: clamp(30px, 3.2vw, 40px); font-weight: 510; letter-spacing: -.06em; line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
+.buy__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; padding-top: 16px; border-top: 1px solid var(--rule-dark); }
+.buy__label { color: #94958e; font-size: 10px; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
+.buy .colorway { margin: 0; }
+.buy__stock { margin: 0; color: #f0cf8a; font-size: 13px; }
+
+/* Delivery address: two columns where there is room, one on a phone. */
+.buy__fields { min-width: 0; margin: 0; padding: 16px 0 0; border: 0; border-top: 1px solid var(--rule-dark); }
+.buy__fields legend { float: left; width: 100%; margin-bottom: 14px; padding: 0; }
+.buy__grid { display: grid; clear: both; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.buy__field { display: grid; gap: 6px; min-width: 0; color: #d1d2ca; font-size: 12px; }
+.buy__field--wide { grid-column: 1 / -1; }
+.buy__field input,
+.buy__field select,
+.buy__field textarea { width: 100%; min-height: 46px; padding: 0 12px; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; font: inherit; font-size: 16px; transition: border-color var(--dur-quick) var(--ease); }
+.buy__field textarea { min-height: 76px; padding: 10px 12px; line-height: 1.5; resize: vertical; }
+.buy__field input:hover,
+.buy__field select:hover,
+.buy__field textarea:hover { border-color: rgba(241, 242, 234, .34); }
+.buy__field input:user-invalid { border-color: #b98a2e; }
+/* A field people never see; form-filling bots give themselves away in it. */
+.buy__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.buy__fixed { display: block; padding: 12px; color: #aaaba3; background: var(--paper); border: 1px dashed var(--rule); border-radius: 10px; font-size: 14px; }
+.buy__fixed > span:first-child { color: var(--ink); }
+/* "It is in your cart", with the way to the cart. */
+.buy__added { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 0; padding: 12px 14px; color: #d9f2e0; background: rgba(143, 214, 165, .12); border: 1px solid rgba(143, 214, 165, .35); border-radius: 10px; font-size: 13px; }
+.buy__added a { color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Cart button in the header: a glyph and a count, so it costs the bar the same
+   width in every language. */
+.nav__cart { position: relative; display: inline-grid; flex: none; width: 40px; height: 40px; place-items: center; color: var(--ink); border: 1px solid var(--rule); border-radius: 50%; transition: color var(--dur-quick) var(--ease), border-color var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease); }
+.nav__cart:hover,
+.nav__cart[aria-current="page"] { color: #fff; border-color: var(--ink); }
+.nav__cart:active { transform: scale(.92); }
+.nav__cart svg { width: 17px; height: 17px; }
+.nav__cart-count { position: absolute; top: -5px; right: -6px; display: grid; min-width: 18px; height: 18px; place-items: center; padding: 0 5px; color: #fff; background: var(--accent); border-radius: 999px; font-size: 10px; font-weight: 650; line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
+.nav__cart-count[hidden] { display: none; }
+/* The count pops when it changes, so an add to cart is seen in the header too. */
+.nav__cart-count.is-bumped { animation: cart-bump .5s var(--ease); }
+@keyframes cart-bump { 35% { transform: scale(1.5); } }
+
+/* Cart page (cart.html): three numbered cards on the left — pads, address, payment —
+   and the order summary with the button on the right, which stays in view while scrolling. */
+.checkout { padding-top: 0; }
+.checkout__inner { max-width: 1180px; margin: 0 0 34px; }
+.checkout__form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); gap: clamp(18px, 2.2vw, 30px); align-items: start; }
+.checkout__main { display: grid; gap: clamp(14px, 1.6vw, 20px); min-width: 0; }
+
+.step,
+.summary { min-width: 0; padding: clamp(20px, 2.4vw, 30px); background: var(--dark-raised); border: 1px solid var(--rule-dark); border-radius: var(--radius-md); }
+.step__head { display: flex; align-items: center; gap: 12px; margin: 0 0 22px; font-size: clamp(18px, 1.6vw, 22px); font-weight: 550; letter-spacing: -.035em; line-height: 1.2; }
+.step__num { display: grid; flex: none; width: 30px; height: 30px; place-items: center; color: var(--accent-ink); background: var(--accent-soft); border: 1px solid rgba(var(--accent-rgb), .5); border-radius: 50%; font-size: 13px; font-weight: 650; letter-spacing: 0; font-variant-numeric: lining-nums; }
+.step__link { display: inline-flex; gap: 6px; margin-top: 18px; color: #aaaba3; font-size: 13px; transition: color var(--dur-quick) var(--ease); }
+.step__link:hover { color: #fff; }
+
+.cart-lines { display: grid; margin: 0; padding: 0; list-style: none; }
+.cart-line { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 12px 18px; padding: 18px 0; border-bottom: 1px solid var(--rule-dark); }
+.cart-line:first-child { padding-top: 0; }
+.cart-line__img { grid-row: span 2; width: 96px; height: 96px; object-fit: cover; background: var(--img-bg); border: 1px solid var(--rule); border-radius: 14px; }
+.cart-line__info { min-width: 0; }
+.cart-line__title { margin: 0 0 3px; font-size: 17px; font-weight: 550; letter-spacing: -.02em; line-height: 1.25; }
+.cart-line__variant { margin: 0; color: #aaaba3; font-size: 13px; line-height: 1.5; }
+.cart-line__total { margin: 0; font-size: 17px; font-weight: 550; white-space: nowrap; font-variant-numeric: tabular-nums lining-nums; }
+.cart-line__controls { display: flex; grid-column: 2 / -1; align-items: center; justify-content: space-between; gap: 12px; }
+
+/* Address fields on this page: a little taller, with a clear ring on the one in use. */
+.checkout .buy__field { font-size: 13px; }
+.checkout .buy__field input,
+.checkout .buy__field textarea { min-height: 50px; background: #0b0c0a; border-radius: 12px; transition: border-color var(--dur-quick) var(--ease), box-shadow var(--dur-quick) var(--ease); }
+.checkout .buy__field input:focus,
+.checkout .buy__field textarea:focus { border-color: var(--accent-ink); box-shadow: 0 0 0 4px var(--accent-soft); outline: none; }
+.checkout .buy__field [aria-invalid="true"] { border-color: #e58a7a; }
+.checkout .buy__field [aria-invalid="true"]:focus { box-shadow: 0 0 0 4px rgba(229, 138, 122, .2); }
+.checkout .buy__fixed { background: #0b0c0a; border-radius: 12px; }
+.buy__hint { color: #8c8d85; font-size: 12px; }
+.buy__error { color: #f3a394; font-size: 12px; font-weight: 550; }
+
+/* Payment: the one way to pay, shown as chosen, and what happens after the order. */
+.pay__method { display: flex; align-items: center; gap: 14px; padding: 16px; background: var(--accent-soft); border: 1px solid rgba(var(--accent-rgb), .7); border-radius: 14px; }
+.pay__check { position: relative; flex: none; width: 20px; height: 20px; border: 2px solid var(--accent-ink); border-radius: 50%; }
+.pay__check::after { position: absolute; inset: 4px; content: ""; background: var(--accent-ink); border-radius: 50%; }
+.pay__badge { flex: none; padding: 7px 11px; color: #fff; background: #000; border: 1px solid rgba(255, 255, 255, .28); border-radius: 8px; font-size: 13px; font-weight: 750; letter-spacing: .06em; line-height: 1; }
+.pay__text { display: grid; gap: 2px; min-width: 0; color: #c9cac2; font-size: 13px; line-height: 1.45; }
+.pay__text strong { color: var(--ink); font-size: 15px; font-weight: 600; }
+.pay__steps { display: grid; gap: 14px; margin: 20px 0 0; padding: 0; list-style: none; counter-reset: pay; }
+.pay__steps li { display: grid; grid-template-columns: 26px minmax(0, 1fr); align-items: start; gap: 12px; color: #d1d2ca; font-size: 14px; line-height: 1.5; counter-increment: pay; }
+.pay__steps li::before { display: grid; width: 26px; height: 26px; place-items: center; content: counter(pay); color: #aaaba3; border: 1px solid var(--rule); border-radius: 50%; font-size: 12px; font-weight: 650; line-height: 1; }
+.pay__steps li.is-done { color: var(--ink); }
+.pay__steps li.is-done::before { content: "✓"; color: #06130a; background: #8fd6a5; border-color: #8fd6a5; }
+
+/* Order summary. */
+.summary { position: sticky; top: calc(var(--nav-height) + 18px); display: grid; gap: 18px; background: linear-gradient(180deg, rgba(var(--accent-rgb), .16), rgba(var(--accent-rgb), 0) 220px), var(--dark-raised); border-color: rgba(var(--accent-rgb), .45); box-shadow: 0 24px 60px rgba(0, 0, 0, .45); }
+.summary__title { margin: 0; font-size: clamp(18px, 1.6vw, 22px); font-weight: 550; letter-spacing: -.035em; line-height: 1.2; }
+.summary__lines { display: grid; gap: 12px; margin: 0; padding: 0 0 18px; list-style: none; border-bottom: 1px solid var(--rule-dark); }
+.summary__line { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: 12px; font-size: 14px; }
+.summary__img { width: 44px; height: 44px; object-fit: cover; background: var(--img-bg); border: 1px solid var(--rule); border-radius: 9px; }
+.summary__amount { white-space: nowrap; font-variant-numeric: tabular-nums lining-nums; }
+.cart-sums { display: grid; gap: 9px; margin: 0; }
+.cart-sums div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; color: #aaaba3; font-size: 14px; }
+.cart-sums dd { margin: 0; font-variant-numeric: tabular-nums lining-nums; }
+.cart-sums__total { padding-top: 14px; border-top: 1px solid var(--rule-dark); }
+.cart-sums .cart-sums__total dt { color: var(--ink); font-size: 15px; font-weight: 550; }
+.cart-sums .cart-sums__total dd { color: var(--ink); font-size: clamp(26px, 2.4vw, 32px); font-weight: 510; letter-spacing: -.05em; line-height: 1; }
+.summary .buy__submit { min-height: 58px; font-size: 15px; }
+
+/* Lines that speak up: the cart was changed (amber), the order did not go through (red). */
+.checkout__notice,
+.checkout__error { margin: 0; padding: 12px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
+.checkout__notice { color: #f0cf8a; background: rgba(185, 138, 46, .12); border: 1px solid rgba(185, 138, 46, .55); }
+.checkout__error { color: #f8c4ba; background: rgba(229, 138, 122, .12); border: 1px solid rgba(229, 138, 122, .5); }
+
+/* Empty cart, thank-you, paused: one centred card. */
+.checkout__drop { max-width: 620px; padding: clamp(28px, 4vw, 48px); text-align: center; }
+.checkout__drop .shop__note { max-width: 46ch; margin-inline: auto; }
+.checkout__icon { display: grid; width: 64px; height: 64px; margin: 0 auto 20px; place-items: center; color: #aaaba3; border: 1px solid var(--rule); border-radius: 50%; }
+.checkout__icon svg { width: 28px; height: 28px; }
+.checkout__icon--done { color: #06130a; background: #8fd6a5; border-color: #8fd6a5; animation: done-pop .6s var(--ease) both; }
+@keyframes done-pop { from { opacity: 0; transform: scale(.6); } }
+.pay--done { margin: 26px 0; padding: 20px; text-align: left; background: #0b0c0a; border: 1px solid var(--rule-dark); border-radius: 14px; }
+.pay--done .pay__steps { margin-top: 14px; }
+.shop__drop .button { margin-top: 8px; }
+/* The thank-you's live line: where the order stands right now. */
+.pay__status { margin: 0 0 16px; padding: 12px 14px; color: #f0cf8a; background: rgba(185, 138, 46, .12); border: 1px solid rgba(185, 138, 46, .5); border-radius: 12px; font-size: 14px; line-height: 1.5; }
+.pay__status[data-status="paid"],
+.pay__status[data-status="shipped"] { color: #d9f2e0; background: rgba(143, 214, 165, .12); border-color: rgba(143, 214, 165, .45); }
+.pay__status[data-status="cancelled"] { color: #f8c4ba; background: rgba(229, 138, 122, .12); border-color: rgba(229, 138, 122, .5); }
+
+/* Payment step: one card — what to pay, to whom, with which message — and the two ways
+   on: "I have paid", or back to the cart. */
+.checkout__pay { display: grid; gap: 18px; max-width: 760px; padding: clamp(22px, 3.4vw, 40px); background: linear-gradient(180deg, rgba(var(--accent-rgb), .16), rgba(var(--accent-rgb), 0) 240px), var(--dark-raised); border-color: rgba(var(--accent-rgb), .45); box-shadow: 0 24px 60px rgba(0, 0, 0, .45); }
+.checkout__pay .eyebrow,
+.checkout__pay .shop__drop-title { margin: 0; }
+.checkout__pay .shop__drop-title { font-size: clamp(28px, 3.2vw, 42px); }
+.checkout__clock { margin: 0; color: #c9cac2; font-size: 14px; line-height: 1.5; font-variant-numeric: tabular-nums lining-nums; }
+.checkout__clock.is-late { padding: 12px 14px; color: #f0cf8a; background: rgba(185, 138, 46, .12); border: 1px solid rgba(185, 138, 46, .55); border-radius: 12px; }
+.paybox { display: flex; flex-wrap: wrap; align-items: stretch; gap: 18px; }
+.paybox__qr { display: grid; flex: 0 0 auto; gap: 10px; justify-items: center; margin: 0; padding: 14px; color: #0b0c0a; background: #fff; border-radius: 16px; font-size: 12px; font-weight: 600; }
+.paybox__qr img { display: block; width: 220px; height: 220px; object-fit: contain; }
+.paybox__facts { display: grid; flex: 1 1 260px; align-content: center; gap: 0; margin: 0; background: #0b0c0a; border: 1px solid var(--rule-dark); border-radius: 16px; }
+.paybox__facts > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 2px 12px; padding: 14px 16px; }
+.paybox__facts > div + div { border-top: 1px solid var(--rule-dark); }
+.paybox__facts dt { grid-column: 1 / -1; color: #94958e; font-size: 10px; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
+.paybox__facts dd { min-width: 0; margin: 0; color: var(--ink); font-size: clamp(19px, 2vw, 24px); font-weight: 550; letter-spacing: -.03em; overflow-wrap: anywhere; font-variant-numeric: tabular-nums lining-nums; }
+.paybox__copy { min-height: 34px; padding: 0 14px; color: var(--ink); background: transparent; border: 1px solid var(--rule); border-radius: 999px; font-size: 12px; font-weight: 600; transition: color var(--dur-quick) var(--ease), border-color var(--dur-quick) var(--ease); }
+.paybox__copy:hover { color: #fff; border-color: var(--accent-ink); }
+.checkout__pay .pay__steps { margin: 0; }
+.checkout__pay .buy__retry { justify-self: center; }
+/* The two halves of the payment step (paying online, paying by hand) keep the card's rhythm. */
+.checkout__online,
+.checkout__manual { display: grid; gap: 18px; }
+.checkout__online .shop__note { margin: 0; }
+.checkout__online .buy__submit { display: inline-flex; align-items: center; justify-content: center; }
+
+@media (max-width: 900px) {
+  .checkout__form { grid-template-columns: minmax(0, 1fr); }
+  .summary { position: static; }
+}
+
+@media (max-width: 520px) {
+  .cart-line { grid-template-columns: 72px minmax(0, 1fr) auto; gap: 10px 14px; }
+  .cart-line__img { width: 72px; height: 72px; }
+  .pay__method { flex-wrap: wrap; }
+  .pay__text { flex-basis: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .checkout__icon--done { animation: none; }
+}
+
+@media (max-width: 720px) {
+  .nav__cart { width: 38px; height: 38px; }
+}
+
+.buy__submit { width: 100%; min-height: 54px; }
+.buy__trust { display: grid; gap: 8px; margin: 0; padding: 16px 0 0; border-top: 1px solid var(--rule-dark); }
+.buy__trust li { display: flex; align-items: center; gap: 10px; color: #d1d2ca; font-size: 13px; line-height: 1.4; }
+.buy__trust li::before { flex: none; width: 6px; height: 6px; content: ""; background: var(--accent-ink); border-radius: 50%; }
+.buy__message { margin: 0; color: #f0cf8a; font-size: 13px; line-height: 1.5; }
+.buy__retry { padding: 0; color: #e8e9e2; background: transparent; border: 0; font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.buy__retry:hover { color: #fff; }
+
+@media (max-width: 520px) {
+  .buy__grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-contrast: more) {
+  .qty,
+  .buy__field input,
+  .buy__field select,
+  .buy__field textarea { border-color: rgba(255, 255, 255, .5); }
+}
+
+@media (forced-colors: active) {
+  .qty,
+  .buy,
+  .shop__drop,
+  .shop__setup { border: 1px solid ButtonBorder; }
+}
+
+@media print {
+  .buy, .shop__setup { display: none !important; }
+}

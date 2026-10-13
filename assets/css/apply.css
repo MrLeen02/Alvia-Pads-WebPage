@@ -1,0 +1,101 @@
+/* ALVIA — tester application (apply.html).
+   Loaded after styles.css and built on its tokens. Behaviour is in assets/js/apply.js. */
+
+.apply { background: var(--paper); }
+.apply [hidden] { display: none !important; }
+.apply__form { display: grid; gap: clamp(36px, 4.4vw, 56px); max-width: 860px; }
+
+/* One group per question block: a numbered heading over a two-column grid. */
+.apply__group { min-width: 0; margin: 0; padding: 24px 0 0; border: 0; border-top: 1px solid var(--rule); }
+.apply__legend { float: left; width: 100%; margin-bottom: 24px; padding: 0; font-size: clamp(21px, 2.1vw, 27px); font-weight: 510; letter-spacing: -.045em; line-height: 1.12; }
+.apply__step { margin-right: 14px; color: var(--accent-ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10px; font-weight: 400; letter-spacing: .1em; vertical-align: middle; }
+.apply__grid { display: grid; clear: both; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; }
+
+.field { display: grid; align-content: start; gap: 8px; min-width: 0; }
+.field--wide { grid-column: 1 / -1; }
+.field label { color: #d1d2ca; font-size: 13px; font-weight: 550; line-height: 1.4; }
+.field__optional { margin-left: 4px; color: var(--muted); font-size: 12px; font-weight: 400; }
+.field input:not([type="checkbox"]),
+.field textarea { width: 100%; min-height: 50px; padding: 0 14px; color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; font-size: 16px; transition: border-color var(--dur-quick) var(--ease), background-color var(--dur-quick) var(--ease); }
+.field textarea { min-height: 160px; padding: 13px 14px; line-height: 1.55; resize: vertical; }
+.field input:not([type="checkbox"]):hover,
+.field textarea:hover { border-color: rgba(241, 242, 234, .34); }
+.field input:focus-visible,
+.field textarea:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
+.field input[aria-invalid="true"]:not([type="checkbox"]),
+.field textarea[aria-invalid="true"] { border-color: #b98a2e; }
+.field__hint,
+.field__error { margin: 0; font-size: 12px; line-height: 1.5; }
+.field__hint { color: var(--muted); }
+.field__error { color: #f0cf8a; }
+
+/* Consent: the box sits beside its sentence, the error under both. */
+.field--check { grid-template-columns: auto minmax(0, 1fr); gap: 8px 14px; align-items: start; }
+.field--check input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--accent); }
+.field--check label { color: #c3c4bc; font-weight: 400; line-height: 1.55; }
+.field--check label a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; }
+.field--check label a:hover { color: #fff; }
+.field--check .field__error { grid-column: 2; }
+
+.apply__send { display: grid; gap: 22px; justify-items: start; padding-top: 24px; border-top: 1px solid var(--rule); }
+.apply__submit { min-width: min(100%, 260px); min-height: 56px; }
+.apply__form[aria-busy="true"] .apply__group { opacity: .55; pointer-events: none; }
+.apply__group { transition: opacity var(--dur-quick) var(--ease); }
+.apply__message { margin: 0; color: #f0cf8a; font-size: 14px; line-height: 1.55; }
+.apply__message a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.apply__note { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+/* A field people never see; form-filling bots give themselves away in it. */
+.apply__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* After sending: the form steps aside for one calm confirmation. */
+.apply__done { display: grid; justify-items: start; max-width: 720px; padding: clamp(26px, 3.4vw, 44px); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); animation: apply-done var(--dur-base) var(--ease); }
+.apply__done:focus { outline: none; }
+.apply__done .eyebrow { color: var(--accent-ink); }
+.apply__done-title { max-width: 22ch; margin: 0 0 16px; font-size: clamp(30px, 3.4vw, 46px); font-weight: 510; letter-spacing: -.06em; line-height: 1; text-wrap: balance; }
+.apply__done-body { max-width: 52ch; margin: 0 0 30px; color: var(--muted); font-size: 16px; line-height: 1.65; }
+@keyframes apply-done { from { opacity: 0; transform: translateY(18px); } }
+
+/* Desktop: the same two-column reading layout as FAQ and contact (styles.css,
+   "Desktop — use the width") — the headline stays in view while the form scrolls. */
+@media (min-width: 1121px) {
+  .page--apply main { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); column-gap: clamp(48px, 6vw, 120px); align-items: start; padding-inline: var(--edge); }
+  .page--apply main > .section { padding-inline: 0; }
+  .page--apply .page-hero { display: block; min-height: 0; padding-bottom: 60px; }
+  .page--apply .page-hero .section__title { max-width: none; margin-bottom: 24px; font-size: clamp(40px, 4.2vw, 72px); }
+  .page--apply .page-hero > .lede { margin-bottom: 0; }
+  .page--apply .page-hero + .section { padding-top: calc(var(--nav-height) + 118px); }
+  .apply__form,
+  .apply__done { max-width: none; }
+  @media (min-height: 700px) {
+    .page--apply .page-hero { position: sticky; top: 0; }
+  }
+}
+
+@media (max-width: 720px) {
+  .page--apply .apply { padding-top: 12px; }
+}
+
+@media (max-width: 520px) {
+  .apply__grid { grid-template-columns: 1fr; }
+  .apply__submit { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apply__done { animation: none; }
+}
+
+@media (prefers-contrast: more) {
+  .field input:not([type="checkbox"]),
+  .field textarea { border-color: rgba(255, 255, 255, .5); }
+}
+
+@media (forced-colors: active) {
+  .field input:not([type="checkbox"]),
+  .field textarea,
+  .apply__done { border: 1px solid ButtonBorder; }
+}
+
+@media print {
+  .apply__submit, .apply__note { display: none !important; }
+}

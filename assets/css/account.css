@@ -1,0 +1,60 @@
+/* ALVIA — admin sign-in in the header: the round account button and its panel.
+   Loaded on every page after styles.css and built on its tokens. Nothing here shows
+   unless assets/js/account.js adds the button. */
+
+/* A glyph only, so it costs the bar the same width in every language. */
+.nav__account { position: relative; display: inline-grid; flex: none; width: 40px; height: 40px; place-items: center; color: var(--ink); border: 1px solid var(--rule); border-radius: 50%; transition: color var(--dur-quick) var(--ease), border-color var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease); }
+.nav__account:hover { color: #fff; border-color: var(--ink); }
+.nav__account:active { transform: scale(.92); }
+.nav__account svg { width: 17px; height: 17px; }
+/* Signed in. */
+.nav__account-dot { position: absolute; top: 0; right: 0; width: 11px; height: 11px; background: #8fd6a5; border: 2px solid var(--paper); border-radius: 50%; }
+.nav__account-dot[hidden] { display: none; }
+
+/* The panel hangs under the header, at the right edge like the button. */
+.account { position: fixed; inset: 78px var(--edge) auto auto; width: min(360px, calc(100vw - 32px)); max-width: none; margin: 0; padding: 0; color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); }
+.account::backdrop { background: rgba(0, 0, 0, .64); }
+.account :focus-visible { outline-color: #fff; outline-offset: 2px; }
+.account__panel { display: grid; gap: 16px; padding: 22px; }
+.account__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.account__title { margin: 0; font-size: 22px; font-weight: 510; letter-spacing: -.05em; line-height: 1; }
+.account__close { display: grid; width: 36px; height: 36px; place-items: center; padding: 0; color: var(--ink); background: transparent; border: 1px solid var(--rule); border-radius: 50%; font-size: 20px; line-height: 1; transition: color var(--dur-quick) var(--ease), background-color var(--dur-quick) var(--ease); }
+.account__close:hover { color: #0b0c0a; background: var(--ink); }
+.account__field { display: grid; gap: 6px; color: #d1d2ca; font-size: 12px; }
+.account__field input { width: 100%; min-height: 46px; padding: 0 12px; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; font: inherit; font-size: 16px; }
+.account__field input:hover { border-color: rgba(241, 242, 234, .34); }
+.account__check { display: flex; align-items: center; gap: 10px; color: #d1d2ca; font-size: 13px; cursor: pointer; }
+.account__check input { flex: none; width: 18px; height: 18px; margin: 0; accent-color: var(--accent); }
+.account__submit { width: 100%; min-height: 50px; }
+.account__message { margin: 0; color: #f0cf8a; font-size: 13px; line-height: 1.5; }
+.account__message[hidden] { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .account[open] { animation: account-in .35s var(--ease); }
+  .account[open]::backdrop { animation: account-dim .35s var(--ease); }
+}
+@keyframes account-in { from { opacity: 0; transform: translateY(-8px); } }
+@keyframes account-dim { from { opacity: 0; } }
+
+@media (max-width: 720px) {
+  .nav__account { width: 38px; height: 38px; }
+  .account { top: 70px; right: 16px; }
+}
+
+@media (prefers-contrast: more) {
+  .nav__account,
+  .account,
+  .account__close,
+  .account__field input { border-color: rgba(255, 255, 255, .5); }
+}
+
+@media (forced-colors: active) {
+  .nav__account,
+  .account,
+  .account__close { border: 1px solid ButtonBorder; }
+  .nav__account-dot { background: Highlight; }
+}
+
+@media print {
+  .nav__account, .account { display: none !important; }
+}

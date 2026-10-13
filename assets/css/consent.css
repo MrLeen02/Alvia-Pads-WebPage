@@ -1,0 +1,64 @@
+/* ALVIA — cookie banner. Loaded on every page after styles.css and built on its tokens.
+   Nothing here shows unless the site's own server counts visitors: it then marks the
+   page with is-counting and assets/js/consent.js adds the banner. */
+
+/* Text that depends on it (privacy policy): data-counting only shows where visitors
+   are counted, data-not-counting only where they are not. */
+html:not(.is-counting) [data-counting],
+html.is-counting [data-not-counting] { display: none !important; }
+
+/* A card at the bottom left, of frosted glass; the page behind it stays usable. */
+.consent { position: fixed; z-index: 150; bottom: 24px; left: 24px; display: grid; gap: 14px; width: min(420px, calc(100vw - 48px)); padding: 24px; color: var(--ink); background: rgba(20, 21, 18, .82); border: 1px solid rgba(255, 255, 255, .16); border-radius: 24px; box-shadow: 0 24px 60px rgba(0, 0, 0, .6), inset 0 1px 0 rgba(255, 255, 255, .06); -webkit-backdrop-filter: blur(22px) saturate(1.4); backdrop-filter: blur(22px) saturate(1.4); }
+.consent[hidden] { display: none; }
+.consent__head { display: flex; align-items: center; gap: 12px; }
+.consent__icon { display: grid; flex: none; width: 40px; height: 40px; place-items: center; color: var(--accent-ink); background: var(--accent-soft); border: 1px solid rgba(126, 185, 241, .28); border-radius: 12px; }
+.consent__icon svg { width: 21px; height: 21px; }
+.consent__title { margin: 0; font-size: 21px; font-weight: 510; letter-spacing: -.045em; line-height: 1.1; }
+.consent__title:focus { outline: none; }
+.consent__text { margin: 0; color: #c3c4bc; font-size: 13.5px; line-height: 1.62; }
+.consent__text a { color: var(--accent-ink); text-decoration: underline; text-decoration-color: rgba(126, 185, 241, .45); text-underline-offset: 3px; white-space: nowrap; transition: color var(--dur-quick) var(--ease); }
+.consent__text a:hover { color: #fff; }
+/* Two buttons side by side: "Accept" is the wider, coloured one, "Decline" stays a
+   full button next to it. */
+.consent__actions { display: grid; grid-template-columns: 1fr 1.7fr; gap: 10px; margin-top: 6px; }
+.consent__button { min-height: 48px; padding: 0 14px; }
+.consent__button--quiet { color: #c3c4bc; background: transparent; border-color: rgba(241, 242, 234, .22); font-weight: 510; }
+.consent__button--quiet:hover { color: var(--ink); background: rgba(255, 255, 255, .08); border-color: rgba(241, 242, 234, .5); }
+.consent .consent__button--accept { gap: 8px; color: #fff; background: linear-gradient(180deg, #1273d4, var(--accent)); border-color: rgba(126, 185, 241, .55); box-shadow: 0 10px 26px rgba(var(--accent-rgb), .45), inset 0 1px 0 rgba(255, 255, 255, .22); font-size: 14px; }
+.consent .consent__button--accept:hover { color: #fff; background: linear-gradient(180deg, #2b8ae8, #0a6ccc); border-color: var(--accent-ink); box-shadow: 0 14px 32px rgba(var(--accent-rgb), .6), inset 0 1px 0 rgba(255, 255, 255, .28); }
+.consent__button--accept svg { position: relative; z-index: 1; flex: none; width: 16px; height: 16px; }
+
+@media (max-width: 720px) {
+  .consent { bottom: 12px; left: 12px; width: calc(100vw - 24px); padding: 20px; border-radius: 20px; }
+}
+@media (max-width: 360px) {
+  .consent__actions { grid-template-columns: 1fr 1.3fr; }
+}
+
+/* "Cookie settings" among the legal links in the footer: a button that reads like them. */
+.footer__legal button { padding: 0 0 2px; color: #c6c7bf; background: none; border: 0; border-bottom: 1px solid transparent; font: inherit; font-size: 12px; cursor: pointer; transition: color var(--dur-quick) var(--ease), border-color var(--dur-quick) var(--ease); }
+.footer__legal button:hover { color: #fff; border-color: rgba(255, 255, 255, .5); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .consent { animation: consent-in .6s var(--ease); }
+}
+@keyframes consent-in { from { opacity: 0; transform: translateY(14px); } }
+
+@media (prefers-contrast: more) {
+  .consent { background: var(--surface); }
+  .consent,
+  .consent__icon,
+  .consent__button,
+  .consent .consent__button--accept { border-color: rgba(255, 255, 255, .6); }
+  .consent__button--quiet { color: var(--ink); }
+}
+
+@media (forced-colors: active) {
+  .consent,
+  .consent__icon,
+  .consent__button { border: 1px solid ButtonBorder; }
+}
+
+@media print {
+  .consent, .footer__legal button { display: none !important; }
+}

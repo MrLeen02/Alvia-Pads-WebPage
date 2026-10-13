@@ -1,0 +1,124 @@
+{
+  "settings": {
+    "open": false,
+    "price": 4495,
+    "shipping": 1500,
+    "currency": "CHF",
+    "maxQuantity": 2,
+    "lowStock": 5,
+    "stock": {
+      "blue": 0,
+      "black": 0
+    },
+    "payment": {
+      "holder": "",
+      "iban": "",
+      "twint": "",
+      "qr": ""
+    }
+  },
+  "orders": [],
+  "movements": [
+    {
+      "id": "98aafc8a-d9c0-4e71-81b2-c390959c82ee",
+      "at": "2026-10-10T10:34:34.686Z",
+      "colour": "blue",
+      "change": 50,
+      "balance": 50,
+      "reason": "correction",
+      "ref": "",
+      "by": "admin26"
+    },
+    {
+      "id": "67e2639c-14e1-4548-958c-631e0bdbab49",
+      "at": "2026-10-10T10:34:45.612Z",
+      "colour": "black",
+      "change": 50,
+      "balance": 50,
+      "reason": "correction",
+      "ref": "",
+      "by": "admin26"
+    },
+    {
+      "id": "ab94d147-f82b-439d-80cc-8f66e82e6be9",
+      "at": "2026-10-10T11:11:57.896Z",
+      "colour": "blue",
+      "change": -50,
+      "balance": 0,
+      "reason": "correction",
+      "ref": "",
+      "by": "admin26"
+    },
+    {
+      "id": "958a1f59-4613-4f8a-ae4c-b0e97f361556",
+      "at": "2026-10-10T11:12:04.984Z",
+      "colour": "black",
+      "change": -50,
+      "balance": 0,
+      "reason": "correction",
+      "ref": "",
+      "by": "admin26"
+    },
+    {
+      "id": "4b8f50f2-3b3b-4b17-9368-cca371c83b6f",
+      "at": "2026-10-10T15:18:59.042Z",
+      "colour": "blue",
+      "change": 1,
+      "balance": 1,
+      "reason": "delivery",
+      "ref": "",
+      "by": "admin26"
+    },
+    {
+      "id": "9a718977-4a84-4a9f-bf44-2cc193ff2352",
+      "at": "2026-10-10T16:14:54.519Z",
+      "colour": "blue",
+      "change": -1,
+      "balance": 0,
+      "reason": "order",
+      "ref": "AL-1001",
+      "by": ""
+    },
+    {
+      "id": "fdce55ed-bed7-405b-9ca2-d11699667d9b",
+      "at": "2026-10-10T16:16:54.134Z",
+      "colour": "blue",
+      "change": 1,
+      "balance": 1,
+      "reason": "deleted",
+      "ref": "AL-1001",
+      "by": "admin26"
+    },
+    {
+      "id": "6d851b5d-de67-408c-81c1-b112eed8fa61",
+      "at": "2026-10-11T10:29:18.639Z",
+      "colour": "blue",
+      "change": -1,
+      "balance": 0,
+      "reason": "order",
+      "ref": "AL-1002",
+      "by": ""
+    },
+    {
+      "id": "77887eeb-ef81-4611-ac3f-e70ca88f023e",
+      "at": "2026-10-11T18:59:54.962Z",
+      "colour": "blue",
+      "change": 1,
+      "balance": 1,
+      "reason": "deleted",
+      "ref": "AL-1002",
+      "by": "admin26"
+    },
+    {
+      "id": "3f92d497-05cc-44d7-b62d-3dbefd81905b",
+      "at": "2026-10-11T19:00:06.435Z",
+      "colour": "blue",
+      "change": -1,
+      "balance": 0,
+      "reason": "damaged",
+      "ref": "",
+      "by": "admin26"
+    }
+  ],
+  "nextNumber": 1003
+}
