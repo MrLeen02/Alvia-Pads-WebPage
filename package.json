@@ -1,0 +1,12 @@
+{
+  "name": "alvia-pads-website",
+  "private": true,
+  "description": "ALVIA website with its own order form and admin dashboard.",
+  "scripts": {
+    "start": "node server/server.js",
+    "set-password": "node server/set-password.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
